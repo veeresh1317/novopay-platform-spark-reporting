@@ -1,0 +1,46 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'in.novopay'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//implementation 'org.apache.spark:spark-core_2.12:3.2.0'
+	implementation 'org.apache.spark:spark-sql_2.13:3.5.1'
+	//implementation 'org.apache.spark:spark-sql_2.12:3.2.0'
+	implementation 'org.postgresql:postgresql:42.3.1'
+
+	implementation 'ru.yandex.clickhouse:clickhouse-jdbc:0.3.2'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.codehaus.janino:janino:3.1.6'
+	implementation 'org.codehaus.janino:commons-compiler:3.1.6'
+
+//	implementation 'javax.servlet:javax.servlet-api:4.0.1'
+//
+//	implementation 'org.glassfish.jersey.core:jersey-server:2.35'
+//	implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.35'
+//	implementation 'org.glassfish.jersey.containers:jersey-container-servlet-core:2.35'
+//	dependencies {
+//		implementation('org.apache.spark:spark-sql_2.13:3.5.1') {
+//			exclude group: 'org.antlr', module: 'antlr4-runtime'
+//		}
+//		implementation 'org.antlr:antlr4-runtime:4.9.3'
+//		// other dependencies
+//	}
+
+}
+
+//test {
+//	useJUnitPlatform()
+//}
