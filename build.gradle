@@ -1,8 +1,15 @@
 plugins {
+	id 'com.github.johnrengelman.shadow' version '7.1.2' // Add this line
 	id 'org.springframework.boot' version '2.6.6'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
+
+shadowJar {
+	archiveClassifier.set('')
+	mergeServiceFiles() // This helps with conflicting dependencies
+}
+
 
 group = 'in.novopay'
 version = '0.0.1-SNAPSHOT'
@@ -16,31 +23,54 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//implementation 'org.apache.spark:spark-core_2.12:3.2.0'
 	implementation 'org.apache.spark:spark-sql_2.13:3.5.1'
-	//implementation 'org.apache.spark:spark-sql_2.12:3.2.0'
 	implementation 'org.postgresql:postgresql:42.3.1'
 
+	// ClickHouse JDBC driver
 	implementation 'ru.yandex.clickhouse:clickhouse-jdbc:0.3.2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Janino (for Spark SQL expressions)
 	implementation 'org.codehaus.janino:janino:3.1.6'
 	implementation 'org.codehaus.janino:commons-compiler:3.1.6'
 
-//	implementation 'javax.servlet:javax.servlet-api:4.0.1'
-//
-//	implementation 'org.glassfish.jersey.core:jersey-server:2.35'
-//	implementation 'org.glassfish.jersey.containers:jersey-container-servlet:2.35'
-//	implementation 'org.glassfish.jersey.containers:jersey-container-servlet-core:2.35'
-//	dependencies {
-//		implementation('org.apache.spark:spark-sql_2.13:3.5.1') {
-//			exclude group: 'org.antlr', module: 'antlr4-runtime'
-//		}
-//		implementation 'org.antlr:antlr4-runtime:4.9.3'
-//		// other dependencies
-//	}
+	// Jackson dependencies (2.13.0 or later to include StreamReadConstraints)
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.13.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+	implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
 
+	// Add Scala dependency for Spark compatibility
+	implementation 'org.scala-lang:scala-library:2.13.10'
+	implementation 'org.json:json:20230227'
+
+
+	// Exclude any conflicting versions of Jackson in Spark
+	implementation('org.apache.spark:spark-sql_2.13:3.5.1') {
+		exclude group: 'com.fasterxml.jackson.core', module: 'jackson-core'
+		exclude group: 'com.fasterxml.jackson.core', module: 'jackson-databind'
+		exclude group: 'com.fasterxml.jackson.core', module: 'jackson-annotations'
+		exclude group: 'org.scala-lang', module: 'scala-library'
+	}
+
+
+
+	// Test dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-//test {
-//	useJUnitPlatform()
-//}
+
+
+// Force Jackson and Scala versions to resolve conflicts
+configurations.all {
+	resolutionStrategy.force 'com.fasterxml.jackson.core:jackson-core:2.13.0'
+	resolutionStrategy.force 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+	resolutionStrategy.force 'com.fasterxml.jackson.core:jackson-annotations:2.13.0'
+	resolutionStrategy.force 'org.scala-lang:scala-library:2.13.10'
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+test {
+	useJUnitPlatform()
+}

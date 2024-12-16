@@ -15,7 +15,7 @@ public class JobController {
     @Autowired
     private AlmActiveJob almActiveJob;
 
-    @Autowired
+    //@Autowired
 //    private RBIADFAccountDetails rbiADFAccountDetails;
 
     @GetMapping("/run-almActive-job")
