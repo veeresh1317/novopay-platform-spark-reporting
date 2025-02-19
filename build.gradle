@@ -18,6 +18,29 @@ sourceCompatibility = '11'
 repositories {
 	mavenCentral()
 }
+tasks.withType(JavaExec) {
+	jvmArgs += [
+			'--add-exports=java.base/sun.nio.ch=ALL-UNNAMED'
+	]
+}
+
+tasks.withType(Test) {
+	jvmArgs += [
+			'--add-exports=java.base/sun.nio.ch=ALL-UNNAMED'
+	]
+}
+
+tasks.withType(JavaExec) {
+	jvmArgs += [
+			'--add-exports=java.base/sun.util.calendar=ALL-UNNAMED'
+	]
+}
+
+tasks.withType(Test) {
+	jvmArgs += [
+			'--add-exports=java.base/sun.util.calendar=ALL-UNNAMED'
+	]
+}
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
@@ -41,6 +64,18 @@ dependencies {
 	// Add Scala dependency for Spark compatibility
 	implementation 'org.scala-lang:scala-library:2.13.10'
 	implementation 'org.json:json:20230227'
+
+	implementation "org.apache.spark:spark-sql-kafka-0-10_2.13:3.5.1"
+	implementation "org.apache.kafka:kafka-clients:3.5.1"
+	implementation 'com.fasterxml.jackson.module:jackson-module-scala_2.13:2.15.2'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+
+
+
+
+
+
 
 
 	// Exclude any conflicting versions of Jackson in Spark

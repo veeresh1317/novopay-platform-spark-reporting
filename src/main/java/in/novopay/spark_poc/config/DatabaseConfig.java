@@ -40,12 +40,18 @@ public class DatabaseConfig {
     @Value("${clickhouse.password}")
     private String clickhousePassword;
 
+    @Value("${kafka.bootstrap.servers}")
+    private String kafkaServers;
+
+
     public String getYugabyteUrl() {
         return String.format("%s:%s://%s:%s/%s", protocol, subprotocol, host, port, db);
     }
 //    public String getYugabyteUrl() {
 //        return "jdbc://" + this.host + ':' + this.port + '/' + this.db + "?autoReconnect=true";
 //    }
+
+
 
     public Properties getYugabyteProperties() {
         Properties props = new Properties();
@@ -65,5 +71,20 @@ public class DatabaseConfig {
         props.put("password", clickhousePassword);
         props.put("driver", "ru.yandex.clickhouse.ClickHouseDriver");
         return props;
+    }
+
+
+    // Other database configuration properties and methods...
+
+    public String getKafkaServers() {
+        return kafkaServers;
+    }
+
+    // Example: If needed for other Kafka properties
+    public Properties getKafkaProperties() {
+        Properties kafkaProps = new Properties();
+        kafkaProps.put("bootstrap.servers", kafkaServers);
+        // Add additional properties if needed
+        return kafkaProps;
     }
 }

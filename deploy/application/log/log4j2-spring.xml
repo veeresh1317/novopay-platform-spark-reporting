@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" monitorInterval="30" xmlns:xi="http://www.w3.org/2001/XInclude" packages="in.novopay.apigateway.log.converter">
+
+	<Properties>
+		<Property name="path">$${env:NOVOPAY_LOG_HOME:-logs}</Property>
+		<Property name="logging_level">$${env:NOVOPAY_LOGGING_LEVEL:-debug}</Property>
+		<Property name="service-name">reporting</Property>
+		<Property name="default-pattern">[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%X{tenant}] [${service-name}] [%t] [%X{transaction.id}] [%X{trace.id}] [%X{span.id}] [%X{stan}] [%level] [%logger{1.}] %msg%n</Property>
+		<Property name="perf-pattern">%d{yyyy-MM-dd HH:mm:ss.SSS},%t,%X{tenant},%X{stan},%msg%n</Property>
+		<Property name="log-appender-type">${sys:LOG_APPENDER_TYPE:-file}</Property>
+	</Properties>
+
+	<Appenders>
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout>
+				<Pattern>${default-pattern}</Pattern>
+			</PatternLayout>
+		</Console>
+
+		<RollingFile name="performance" fileName="${path}/perf/${service-name}-perf.log"
+					 filePattern="${path}/perf/archived/archived-logs-%d{yyyy-MM}/${service-name}/%d{yyyy-MM-dd}-${service-name}-perf-%i.log.gz" createOnDemand="true">
+			<PatternLayout>
+				<pattern>${perf-pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<OnStartupTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="100 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="100" />
+		</RollingFile>
+
+		<RollingFile name="common" fileName="${path}/common/${service-name}-common.log"
+					 filePattern="${path}/common/archived/archived-logs-%d{yyyy-MM}/${service-name}/%d{yyyy-MM-dd}-${service-name}-common.%i.log.gz" createOnDemand="true">
+			<PatternLayout>
+				<pattern>${default-pattern}</pattern>
+			</PatternLayout>
+			<Policies>
+				<SizeBasedTriggeringPolicy size="100 MB" />
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+			<DefaultRolloverStrategy max="100" />
+		</RollingFile>
+
+		<xi:include href="log4j2-routing-appender.xml" />
+
+		<Async name="async-service">
+			<AppenderRef ref="Router-service" />
+		</Async>
+		<Routing name="Router-service">
+			<Routes pattern="${log-appender-type}">
+				<Route key="console" ref="console" />
+				<Route key="file" ref="routing" />
+			</Routes>
+		</Routing>
+
+		<Async name="async-perf">
+			<AppenderRef ref="router-perf" />
+		</Async>
+		<Routing name="router-perf">
+			<Routes pattern="${log-appender-type}">
+				<Route key="console" ref="console" />
+				<Route key="file" ref="performance" />
+			</Routes>
+		</Routing>
+	</Appenders>
+
+	<Loggers>
+		<Logger name="PERF_LOGGER" level="info" additivity="false">
+			<AppenderRef ref="async-perf" /> <!-- writing performance logs to separate file -->
+		</Logger>
+		<Logger name="in.novopay" level="${logging_level}" additivity="false">
+			<AppenderRef ref="async-service" /> <!-- This logger is referred when tenant is set in MDC, logging to tenant file -->
+		</Logger>
+		<Root level="info">
+			<AppenderRef ref="async-service" />
+		</Root>
+	</Loggers>
+</Configuration>
+		<!-- -DLog4jContextSelector=org.apache.logging.log4j.core.async.AsyncLoggerContextSelector -Dlog4j.configurationFile=workspace-platform-common/log4j2-spring.xml -->
+
+
+		<!--		-Delastic.apm.use_path_as_transaction_name=true -Delastic.apm.transaction_name_groups="/api-gateway"-->

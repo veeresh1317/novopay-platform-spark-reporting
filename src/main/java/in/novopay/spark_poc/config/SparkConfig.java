@@ -14,6 +14,8 @@ public class SparkConfig {
         return SparkSession.builder()
                 .appName("YB-SPARK-CH")
                 .config("spark.ui.enabled", "false")
+                .config("spark.driver.extraJavaOptions", "--add-opens java.base/sun.nio.ch=ALL-UNNAMED")
+                .config("spark.executor.extraJavaOptions", "--add-opens java.base/sun.nio.ch=ALL-UNNAMED")
                 .master("local[*]") // Change this to your cluster URL if not running locally
                 .getOrCreate();
     }

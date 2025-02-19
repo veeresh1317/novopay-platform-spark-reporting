@@ -1,0 +1,63 @@
+2025-01-06 12:02:04 - Starting Application using Java 17.0.13 on CISLTP-79 with PID 26227 (/home/veeresh/REPOS/novopay-platform-spark-reporting/build/classes/java/main started by veeresh in /home/veeresh/REPOS/novopay-platform-spark-reporting)
+2025-01-06 12:02:04 - No active profile set, falling back to 1 default profile: "default"
+2025-01-06 12:02:04 - Tomcat initialized with port(s): 8080 (http)
+2025-01-06 12:02:04 - Initializing ProtocolHandler ["http-nio-8080"]
+2025-01-06 12:02:04 - Starting service [Tomcat]
+2025-01-06 12:02:04 - Starting Servlet engine: [Apache Tomcat/9.0.60]
+2025-01-06 12:02:04 - Initializing Spring embedded WebApplicationContext
+2025-01-06 12:02:04 - Root WebApplicationContext: initialization completed in 574 ms
+2025-01-06 12:02:04 - Your hostname, CISLTP-79 resolves to a loopback address: 127.0.1.1; using 172.16.7.176 instead (on interface wlp0s20f3)
+2025-01-06 12:02:04 - Set SPARK_LOCAL_IP if you need to bind to another address
+2025-01-06 12:02:05 - Running Spark version 3.5.1
+2025-01-06 12:02:05 - OS info Linux, 6.8.0-49-generic, amd64
+2025-01-06 12:02:05 - Java version 17.0.13
+2025-01-06 12:02:05 - Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2025-01-06 12:02:05 - ==============================================================
+2025-01-06 12:02:05 - No custom resources configured for spark.driver.
+2025-01-06 12:02:05 - ==============================================================
+2025-01-06 12:02:05 - Submitted application: YB-SPARK-CH
+2025-01-06 12:02:05 - Default ResourceProfile created, executor resources: Map(cores -> name: cores, amount: 1, script: , vendor: , memory -> name: memory, amount: 1024, script: , vendor: , offHeap -> name: offHeap, amount: 0, script: , vendor: ), task resources: Map(cpus -> name: cpus, amount: 1.0)
+2025-01-06 12:02:05 - Limiting resource is cpu
+2025-01-06 12:02:05 - Added ResourceProfile id: 0
+2025-01-06 12:02:05 - Changing view acls to: veeresh
+2025-01-06 12:02:05 - Changing modify acls to: veeresh
+2025-01-06 12:02:05 - Changing view acls groups to: 
+2025-01-06 12:02:05 - Changing modify acls groups to: 
+2025-01-06 12:02:05 - SecurityManager: authentication disabled; ui acls disabled; users with view permissions: veeresh; groups with view permissions: EMPTY; users with modify permissions: veeresh; groups with modify permissions: EMPTY
+2025-01-06 12:02:05 - Successfully started service 'sparkDriver' on port 36691.
+2025-01-06 12:02:05 - Registering MapOutputTracker
+2025-01-06 12:02:05 - Registering BlockManagerMaster
+2025-01-06 12:02:05 - Using org.apache.spark.storage.DefaultTopologyMapper for getting topology information
+2025-01-06 12:02:05 - BlockManagerMasterEndpoint up
+2025-01-06 12:02:05 - Registering BlockManagerMasterHeartbeat
+2025-01-06 12:02:05 - Created local directory at /tmp/blockmgr-f738ce5a-1a4a-4653-ba68-b6ac0820fb02
+2025-01-06 12:02:05 - MemoryStore started with capacity 9.2 GiB
+2025-01-06 12:02:05 - Registering OutputCommitCoordinator
+2025-01-06 12:02:05 - Starting executor ID driver on host 172.16.7.176
+2025-01-06 12:02:05 - OS info Linux, 6.8.0-49-generic, amd64
+2025-01-06 12:02:05 - Java version 17.0.13
+2025-01-06 12:02:05 - Starting executor with user classpath (userClassPathFirst = false): ''
+2025-01-06 12:02:05 - Created or updated repl class loader org.apache.spark.util.MutableURLClassLoader@141aba65 for default.
+2025-01-06 12:02:05 - Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 45541.
+2025-01-06 12:02:05 - Server created on 172.16.7.176:45541
+2025-01-06 12:02:05 - Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+2025-01-06 12:02:05 - Registering BlockManager BlockManagerId(driver, 172.16.7.176, 45541, None)
+2025-01-06 12:02:05 - Registering block manager 172.16.7.176:45541 with 9.2 GiB RAM, BlockManagerId(driver, 172.16.7.176, 45541, None)
+2025-01-06 12:02:05 - Registered BlockManager BlockManagerId(driver, 172.16.7.176, 45541, None)
+2025-01-06 12:02:05 - Initialized BlockManager: BlockManagerId(driver, 172.16.7.176, 45541, None)
+2025-01-06 12:02:05 - Logging initialized @1890ms to org.sparkproject.jetty.util.log.Slf4jLog
+2025-01-06 12:02:05 - Starting ProtocolHandler ["http-nio-8080"]
+2025-01-06 12:02:05 - Tomcat started on port(s): 8080 (http) with context path ''
+2025-01-06 12:02:05 - Started Application in 1.855 seconds (JVM running for 2.132)
+2025-01-06 12:09:33 - Invoking stop() from shutdown hook
+2025-01-06 12:09:33 - SparkContext is stopping with exitCode 0.
+2025-01-06 12:09:33 - MapOutputTrackerMasterEndpoint stopped!
+2025-01-06 12:09:33 - MemoryStore cleared
+2025-01-06 12:09:33 - BlockManager stopped
+2025-01-06 12:09:33 - BlockManagerMaster stopped
+2025-01-06 12:09:33 - OutputCommitCoordinator stopped!
+2025-01-06 12:09:33 - Successfully stopped SparkContext
+2025-01-06 12:09:33 - Shutdown hook called
+2025-01-06 12:09:33 - Deleting directory /tmp/spark-71894bf4-27b9-490c-b9af-d18a5ace4807
+2025-01-06 12:09:33 - SparkContext is stopping with exitCode 0.
+2025-01-06 12:09:33 - SparkContext already stopped.

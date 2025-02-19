@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Routing name="routing">
+	<!-- The following is pattern evaluation, thus allow providing default value -->
+	<Routes pattern="$${ctx:tenant}">
+		<Route key="$${ctx:tenant}" ref="common" />
+		<Route>
+			<RollingFile name="${ctx:tenant}-default-appender" fileName="${path}/${ctx:tenant}/${service-name}-${ctx:tenant}.log"
+				filePattern="${path}/${ctx:tenant}/archive/archived-logs-%d{yyyy-MM}/${service-name}/%d{yyyy-MM-dd}-${service-name}-${ctx:tenant}-%i.log.gz">
+				<PatternLayout>
+					<pattern>${default-pattern}</pattern>
+				</PatternLayout>
+				<Policies>
+					<OnStartupTriggeringPolicy />
+					<SizeBasedTriggeringPolicy size="100 MB" />
+					<TimeBasedTriggeringPolicy />
+				</Policies>
+				<DefaultRolloverStrategy max="100"/>
+			</RollingFile>
+		</Route>
+	</Routes>
+</Routing>
